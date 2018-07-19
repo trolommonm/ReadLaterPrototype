@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07DA57DA68C4EB9158280D58 /* Pods_ReadLaterPrototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 920203C861563D6098AC7564 /* Pods_ReadLaterPrototype.framework */; };
 		D2DE5422210055B5003B3F91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DE5421210055B5003B3F91 /* AppDelegate.swift */; };
 		D2DE5424210055B5003B3F91 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DE5423210055B5003B3F91 /* ViewController.swift */; };
 		D2DE5427210055B5003B3F91 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2DE5425210055B5003B3F91 /* Main.storyboard */; };
 		D2DE5429210055B7003B3F91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2DE5428210055B7003B3F91 /* Assets.xcassets */; };
 		D2DE542C210055B7003B3F91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2DE542A210055B7003B3F91 /* LaunchScreen.storyboard */; };
+		D2DE543421005D97003B3F91 /* GrabLinkPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DE543321005D97003B3F91 /* GrabLinkPreview.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4DF87EB0B0AF0DB53C27EDCB /* Pods-ReadLaterPrototype.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReadLaterPrototype.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ReadLaterPrototype/Pods-ReadLaterPrototype.debug.xcconfig"; sourceTree = "<group>"; };
+		920203C861563D6098AC7564 /* Pods_ReadLaterPrototype.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReadLaterPrototype.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2DE541E210055B5003B3F91 /* ReadLaterPrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReadLaterPrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2DE5421210055B5003B3F91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2DE5423210055B5003B3F91 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +26,8 @@
 		D2DE5428210055B7003B3F91 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2DE542B210055B7003B3F91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D2DE542D210055B7003B3F91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2DE543321005D97003B3F91 /* GrabLinkPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabLinkPreview.swift; sourceTree = "<group>"; };
+		F1447CF1BA57B22B467D29A2 /* Pods-ReadLaterPrototype.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReadLaterPrototype.release.xcconfig"; path = "Pods/Target Support Files/Pods-ReadLaterPrototype/Pods-ReadLaterPrototype.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +35,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07DA57DA68C4EB9158280D58 /* Pods_ReadLaterPrototype.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1FB91BD761A29926EAFF633F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4DF87EB0B0AF0DB53C27EDCB /* Pods-ReadLaterPrototype.debug.xcconfig */,
+				F1447CF1BA57B22B467D29A2 /* Pods-ReadLaterPrototype.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		981B7A9F6CC2C3072E186C4C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				920203C861563D6098AC7564 /* Pods_ReadLaterPrototype.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D2DE5415210055B5003B3F91 = {
 			isa = PBXGroup;
 			children = (
 				D2DE5420210055B5003B3F91 /* ReadLaterPrototype */,
 				D2DE541F210055B5003B3F91 /* Products */,
+				1FB91BD761A29926EAFF633F /* Pods */,
+				981B7A9F6CC2C3072E186C4C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				D2DE5421210055B5003B3F91 /* AppDelegate.swift */,
+				D2DE543321005D97003B3F91 /* GrabLinkPreview.swift */,
 				D2DE5423210055B5003B3F91 /* ViewController.swift */,
 				D2DE5425210055B5003B3F91 /* Main.storyboard */,
 				D2DE5428210055B7003B3F91 /* Assets.xcassets */,
@@ -71,9 +98,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D2DE5430210055B7003B3F91 /* Build configuration list for PBXNativeTarget "ReadLaterPrototype" */;
 			buildPhases = (
+				AEDC2C1863AABC545E093431 /* [CP] Check Pods Manifest.lock */,
 				D2DE541A210055B5003B3F91 /* Sources */,
 				D2DE541B210055B5003B3F91 /* Frameworks */,
 				D2DE541C210055B5003B3F91 /* Resources */,
+				5DC8568C5FD5E36E208FE1E0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -130,11 +159,51 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5DC8568C5FD5E36E208FE1E0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ReadLaterPrototype/Pods-ReadLaterPrototype-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftLinkPreview/SwiftLinkPreview.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftLinkPreview.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ReadLaterPrototype/Pods-ReadLaterPrototype-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AEDC2C1863AABC545E093431 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ReadLaterPrototype-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D2DE541A210055B5003B3F91 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2DE543421005D97003B3F91 /* GrabLinkPreview.swift in Sources */,
 				D2DE5424210055B5003B3F91 /* ViewController.swift in Sources */,
 				D2DE5422210055B5003B3F91 /* AppDelegate.swift in Sources */,
 			);
@@ -278,6 +347,7 @@
 		};
 		D2DE5431210055B7003B3F91 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4DF87EB0B0AF0DB53C27EDCB /* Pods-ReadLaterPrototype.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -295,6 +365,7 @@
 		};
 		D2DE5432210055B7003B3F91 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1447CF1BA57B22B467D29A2 /* Pods-ReadLaterPrototype.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
