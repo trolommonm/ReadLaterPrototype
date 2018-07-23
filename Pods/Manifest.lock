@@ -1,16 +1,31 @@
 PODS:
+  - ChameleonFramework/Default (2.1.0)
+  - ChameleonFramework/Swift (2.1.0):
+    - ChameleonFramework/Default
   - SwiftLinkPreview (2.3.0)
 
 DEPENDENCIES:
+  - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`, branch `wip/swift4`)
   - SwiftLinkPreview
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - SwiftLinkPreview
 
+EXTERNAL SOURCES:
+  ChameleonFramework:
+    :branch: wip/swift4
+    :git: https://github.com/ViccAlexander/Chameleon.git
+
+CHECKOUT OPTIONS:
+  ChameleonFramework:
+    :commit: db432ca1b1a3d8f83ee1f881208c0c960a325e73
+    :git: https://github.com/ViccAlexander/Chameleon.git
+
 SPEC CHECKSUMS:
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   SwiftLinkPreview: 6c9c37215a1310f2bb9ad74fdbe310b3e81556ac
 
-PODFILE CHECKSUM: 4839b711f240c773e978a0763b60165cdcda59c5
+PODFILE CHECKSUM: 911f1f20520d2570b935c97f6254f625dfcb048b
 
 COCOAPODS: 1.5.3
