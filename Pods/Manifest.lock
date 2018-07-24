@@ -2,14 +2,20 @@ PODS:
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
+  - DynamicBlurView (2.0.2)
+  - PopupDialog (0.8.0):
+    - DynamicBlurView (~> 2.0)
   - SwiftLinkPreview (2.3.0)
 
 DEPENDENCIES:
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`, branch `wip/swift4`)
+  - PopupDialog (~> 0.8)
   - SwiftLinkPreview
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - DynamicBlurView
+    - PopupDialog
     - SwiftLinkPreview
 
 EXTERNAL SOURCES:
@@ -24,8 +30,10 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  DynamicBlurView: aa6db4defc6e537eb86fc5e58dd3991666178399
+  PopupDialog: 11347197b6ac3e0548ac445d40ce68d1d407e9a0
   SwiftLinkPreview: 6c9c37215a1310f2bb9ad74fdbe310b3e81556ac
 
-PODFILE CHECKSUM: 911f1f20520d2570b935c97f6254f625dfcb048b
+PODFILE CHECKSUM: cc52a796332b279f9be5fcd0c219b349d89afd15
 
 COCOAPODS: 1.5.3

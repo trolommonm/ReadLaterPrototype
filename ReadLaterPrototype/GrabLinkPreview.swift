@@ -13,22 +13,42 @@ class GrabLinkPreview {
     var url: String?
     var canonicalURL: String?
     var title: String?
-    var description: String?
+    var desc: String?
     var linkPreviewDict = SwiftLinkPreview.Response()
     
     init(url: String) {
         self.url = url
         let slp = SwiftLinkPreview()
-        slp.preview(url, onSuccess: { result in
-            self.linkPreviewDict = result
-            self.setData()
-            //result.forEach { print("\($0), \($1)")}
-        }, onError: { (error) in
-            print("\(error)") }
-        )
+        if let website = slp.extractURL(text: url),
+            let cached = slp.cache.slp_getCachedResponse(url: website.absoluteString) {
+            
+            linkPreviewDict = cached
+            setData()
+            print("Setting data in cache..")
+            
+        } else {
+            slp.preview(url, onSuccess: { result in
+                self.linkPreviewDict = result
+                self.setData()
+                print("Setting data in preview..")
+                //result.forEach { print("\($0), \($1)")}
+            }, onError: { (error) in
+                print("\(error)") }
+            )
+        }
+        /**if let link = url {
+            slp.preview(link, onSuccess: { result in
+                self.linkPreviewDict = result
+                self.setData()
+                //result.forEach { print("\($0), \($1)")}
+            }, onError: { (error) in
+                print("\(error)") }
+            )
+        }**/
     }
     
     private func setData() {
+        print("Setting data..")
         if let value: String = self.linkPreviewDict[.canonicalUrl] as? String {
             self.canonicalURL = value
         }
@@ -38,7 +58,7 @@ class GrabLinkPreview {
         }
         
         if let value: String = self.linkPreviewDict[.description] as? String {
-            self.description = value
+            self.desc = value
         }
     }
 }

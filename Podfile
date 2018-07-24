@@ -5,5 +5,6 @@ target 'ReadLaterPrototype' do
 
 pod 'SwiftLinkPreview'
 pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git', :branch => 'wip/swift4'
+pod 'PopupDialog', '~> 0.8'
 
 end
