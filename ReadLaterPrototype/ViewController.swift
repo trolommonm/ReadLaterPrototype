@@ -28,7 +28,13 @@ class ViewController: UIViewController {
     var slpDescription: String?
     var slpTitle: String?
     var slpCanonicalURL: String?
-    let defaults = UserDefaults.standard
+   
+    // testing out plistparser
+    var arrayOfDict = PlistParser.myArray {
+        didSet {
+            PlistParser.saveDataToPlist(array: arrayOfDict)
+        }
+    }
     
     let textCellIdentifier = "TextCell"
     
@@ -44,12 +50,10 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        //if let array = UserDefaults.standard.array(forKey: "array") as? [SwiftLinkPreview.Response] {
-        //   arrayOfSLPDicts = array
-        //}
-        
         navigationController?.navigationBar.barTintColor = UIColor.flatRedDark
         navigationController?.hidesNavigationBarHairline = true
+        
+        print("\(arrayOfDict)")
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,18 +64,20 @@ class ViewController: UIViewController {
     func showPopUpDialog() {
         
         let popUpVC = PopUpViewController(nibName: "PopUpView", bundle: nil)
-        let popUp = PopupDialog(viewController: popUpVC, buttonAlignment: .horizontal, transitionStyle: .bounceDown, tapGestureDismissal: false, panGestureDismissal: true, hideStatusBar: false) 
+        let popUp = PopupDialog(viewController: popUpVC, buttonAlignment: .horizontal, transitionStyle: .bounceDown, tapGestureDismissal: false, panGestureDismissal: true, hideStatusBar: false)
         
         let buttonOne = CancelButton(title: "Cancel", height: 60) {
             print("Cancel")
         }
         
-        let buttonTwo = DefaultButton(title: "Done", height: 60) {
+        let buttonTwo = DefaultButton(title: "Done", height: 60, dismissOnTap: false) {
             print("Done")
-            if let linkTextFieldString = popUpVC.linkTextField.text {
+            if let linkTextFieldString = popUpVC.linkTextField.text, !linkTextFieldString.isEmpty {
                 self.addLinkPreviews(link: linkTextFieldString)
+                popUp.dismiss()
                 UIApplication.shared.isNetworkActivityIndicatorVisible = true
             } else {
+                popUp.shake()
                 print("Please enter a link!!")
             }
         }
@@ -93,12 +99,16 @@ class ViewController: UIViewController {
             self.setData()
             self.arrayOfSLPDicts.append(result)
             self.tableView.reloadData()
-            //self.defaults.set(self.arrayOfSLPDicts, forKey:"array")
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             print("In Success...")
+            
+            // testing out plistparser
+            self.arrayOfDict.append(PlistParser.convertSwiftLinkPreview(result: result))
+            self.tableView.reloadData()
             }, onError: { (error) in
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                print("In error...")
                 print("\(error)")
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 }
         )
         
@@ -143,19 +153,25 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate, SFSafariVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayOfSLPDicts.count
+        return arrayOfDict.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: textCellIdentifier, for: indexPath) as! TableViewCell
         let row = indexPath.row
-        cell.linkTitleLabel.text = arrayOfSLPDicts[row][SwiftLinkResponseKey.title] as? String
-        let imageLink = arrayOfSLPDicts[row][SwiftLinkResponseKey.image] as? String
-        let image = loadImage(withImageURL: imageLink!)
-        //cell.backgroundColor = AverageColorFromImage(image!)
-        //cell.linkTitleLabel.textColor = ContrastColorOf(cell.backgroundColor!, returnFlat: true)
-        cell.linkImageView.image = image
-        cell.linkImageView.contentMode = UIViewContentMode.scaleAspectFill
+        if let title = arrayOfDict[row]["title"], !title.isEmpty {
+            cell.linkTitleLabel.text = title
+        } else {
+            cell.linkTitleLabel.text = "Cannot get title of the link!"
+        }
+        if let imageLink = arrayOfDict[row]["image"], !imageLink.isEmpty {
+            let image = loadImage(withImageURL: imageLink)
+            cell.linkImageView.image = image
+            cell.linkImageView.contentMode = UIViewContentMode.scaleAspectFill
+        } else {
+            cell.linkImageView.image = nil
+        }
+        
         return cell
     }
     
