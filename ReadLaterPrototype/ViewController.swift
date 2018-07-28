@@ -56,7 +56,7 @@ class ViewController: UIViewController {
         
         let popUpVC = PopUpViewController(nibName: "PopUpView", bundle: nil)
         let popUp = PopupDialog(viewController: popUpVC, buttonAlignment: .horizontal, transitionStyle: .bounceDown, tapGestureDismissal: false, panGestureDismissal: true, hideStatusBar: false)
-        
+
         let buttonOne = CancelButton(title: "Cancel", height: 60) {
             print("Cancel")
         }
@@ -154,8 +154,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate, SFSafariVi
             let safariViewController = SFSafariViewController(url: url!)
             safariViewController.delegate = self
             
+            tableView.deselectRow(at: indexPath, animated: true)
             present(safariViewController, animated: true, completion: nil)
         }
     }
+    
     
 }
