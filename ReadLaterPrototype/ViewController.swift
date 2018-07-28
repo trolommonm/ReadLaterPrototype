@@ -20,19 +20,10 @@ class TableViewCell: UITableViewCell {
 }
 
 class ViewController: UIViewController {
-
-    var link: String?
-    var cononicalLinks: [String] = []
-    var linkPreviewDict = SwiftLinkPreview.Response()
-    var arrayOfSLPDicts = [SwiftLinkPreview.Response]()
-    var slpDescription: String?
-    var slpTitle: String?
-    var slpCanonicalURL: String?
-   
-    // testing out plistparser
-    var arrayOfDict = PlistParser.myArray {
+    
+    var plistParser = PlistParser() {
         didSet {
-            PlistParser.saveDataToPlist(array: arrayOfDict)
+            plistParser.saveDataToPlist()
         }
     }
     
@@ -53,7 +44,7 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor.flatRedDark
         navigationController?.hidesNavigationBarHairline = true
         
-        print("\(arrayOfDict)")
+        print("\(plistParser.arrayOfDict)")
     }
     
     override func didReceiveMemoryWarning() {
@@ -61,7 +52,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func showPopUpDialog() {
+    private func showPopUpDialog() {
         
         let popUpVC = PopUpViewController(nibName: "PopUpView", bundle: nil)
         let popUp = PopupDialog(viewController: popUpVC, buttonAlignment: .horizontal, transitionStyle: .bounceDown, tapGestureDismissal: false, panGestureDismissal: true, hideStatusBar: false)
@@ -90,47 +81,28 @@ class ViewController: UIViewController {
         
     }
     
-    func addLinkPreviews(link: String) {
+    private func addLinkPreviews(link: String) {
         print("\(link)")
         let slp = SwiftLinkPreview()
         slp.preview(link, onSuccess: { (result) in
-            self.linkPreviewDict = result
-            print("\(self.linkPreviewDict)")
-            self.setData()
-            self.arrayOfSLPDicts.append(result)
-            self.tableView.reloadData()
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            print("In Success...")
             
-            // testing out plistparser
-            self.arrayOfDict.append(PlistParser.convertSwiftLinkPreview(result: result))
+            print("In Success...")
+            self.plistParser.addData(withDict: PlistParser.convertSwiftLinkPreview(result: result))
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.tableView.reloadData()
+            
             }, onError: { (error) in
+                
                 print("In error...")
                 print("\(error)")
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                
                 }
         )
         
     }
     
-    func setData() {
-        print("Setting data..")
-        if let value: String = self.linkPreviewDict[.canonicalUrl] as? String {
-            self.slpCanonicalURL = value
-            self.cononicalLinks.append(value)
-        }
-        
-        if let value: String = self.linkPreviewDict[.title] as? String {
-            self.slpTitle = value
-        }
-        
-        if let value: String = self.linkPreviewDict[.description] as? String {
-            self.slpDescription = value
-        }
-    }
-    
-    func loadImage(withImageURL: String) -> UIImage? {
+    private func loadImage(withImageURL: String) -> UIImage? {
         var image: UIImage?
         if let url = URL(string: withImageURL) {
             do {
@@ -153,18 +125,18 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate, SFSafariVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrayOfDict.count
+        return plistParser.arrayOfDict.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: textCellIdentifier, for: indexPath) as! TableViewCell
         let row = indexPath.row
-        if let title = arrayOfDict[row]["title"], !title.isEmpty {
+        if let title = plistParser.arrayOfDict[row]["title"], !title.isEmpty {
             cell.linkTitleLabel.text = title
         } else {
             cell.linkTitleLabel.text = "Cannot get title of the link!"
         }
-        if let imageLink = arrayOfDict[row]["image"], !imageLink.isEmpty {
+        if let imageLink = plistParser.arrayOfDict[row]["image"], !imageLink.isEmpty {
             let image = loadImage(withImageURL: imageLink)
             cell.linkImageView.image = image
             cell.linkImageView.contentMode = UIViewContentMode.scaleAspectFill
@@ -176,11 +148,14 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate, SFSafariVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let url = arrayOfSLPDicts[indexPath.row][SwiftLinkResponseKey.finalUrl] as? URL
-        let safariViewController = SFSafariViewController(url: url!)
-        safariViewController.delegate = self
-        
-        present(safariViewController, animated: true, completion: nil)
+       
+        if let url = plistParser.arrayOfDict[indexPath.row]["finalUrl"], !url.isEmpty {
+            let url = URL(string: url)
+            let safariViewController = SFSafariViewController(url: url!)
+            safariViewController.delegate = self
+            
+            present(safariViewController, animated: true, completion: nil)
+        }
     }
     
 }

@@ -11,31 +11,6 @@ import SwiftLinkPreview
 
 struct PlistParser {
     
-    static var plistPath: String = String()
-    
-    static var myArray: [[String: String]] = {
-        var array: [[String: String]] = []
-        
-        var rootPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, .userDomainMask, true)[0]
-        var plistPathInDocument = rootPath + "/LinkPreviews.plist"
-        if !FileManager.default.fileExists(atPath: plistPathInDocument), let plistPathInBundle = Bundle.main.path(forResource: "LinkPreviews", ofType: "plist") {
-            do {
-                try FileManager.default.copyItem(atPath: plistPathInBundle, toPath: plistPathInDocument)
-            } catch {
-                print("Error occurered while copying file to document \(error)")
-            }
-        }
-        
-        plistPath = plistPathInDocument
-        
-        let tempArray = NSArray(contentsOfFile: plistPathInDocument)
-        if let tempTempArray = tempArray, let value = tempTempArray as? [[String: String]] {
-            array = value
-        }
-        
-        return array
-    }()
-
     static func convertSwiftLinkPreview(result: [SwiftLinkResponseKey: Any]) -> [String: String] {
         var dict: [String: String] = [:]
         
@@ -60,21 +35,47 @@ struct PlistParser {
         return dict
     }
     
-    static func saveDataToPlist(array: [[String: String]]) {
-        let arrayToBeSaved: NSArray = array as NSArray
+    var plistPath: String = {
+        var rootPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, .userDomainMask, true)[0]
+        var plistPathInDocument = rootPath + "/LinkPreviews.plist"
+        
+        return plistPathInDocument
+    }()
+    
+    lazy var arrayOfDict: [[String: String]] = {
+        var array: [[String: String]] = []
+        
+        if !FileManager.default.fileExists(atPath: plistPath), let plistPathInBundle = Bundle.main.path(forResource: "LinkPreviews", ofType: "plist") {
+            do {
+                try FileManager.default.copyItem(atPath: plistPathInBundle, toPath: plistPath)
+            } catch {
+                print("Error occurered while copying file to document \(error)")
+            }
+        }
+        
+        let tempArray = NSArray(contentsOfFile: plistPath)
+        if let tempTempArray = tempArray, let value = tempTempArray as? [[String: String]] {
+            array = value
+        }
+        
+        return array
+    }()
+    
+    mutating func saveDataToPlist() {
+        let arrayToBeSaved: NSArray = arrayOfDict as NSArray
         arrayToBeSaved.write(toFile: plistPath, atomically: true)
     }
     
-    static func addData(withDict: [String: String]) {
-        myArray.append(withDict)
+    mutating func addData(withDict dict: [String: String]) {
+        arrayOfDict.append(dict)
     }
     
-    static func removeData(withDict: [String: String]) {
-        for dict in myArray {
+    mutating func removeData(withDict dict: [String: String]) {
+        for dicts in arrayOfDict {
             var i = 0
             i += 1
-            if dict == withDict {
-                myArray.remove(at: i-1)
+            if dicts == dict {
+                arrayOfDict.remove(at: i-1)
             }
         }
     }
