@@ -67,7 +67,7 @@ struct PlistParser {
     }
     
     mutating func addData(withDict dict: [String: String]) {
-        arrayOfDict.append(dict)
+        arrayOfDict.insert(dict, at: 0)
     }
     
     mutating func removeData(withDict dict: [String: String]) {
@@ -79,4 +79,5 @@ struct PlistParser {
             }
         }
     }
+    
 }
